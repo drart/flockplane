@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>osc.js Web Sockets</title>
+        <title>SoundPlane Flocking</title>
         <meta charset="UTF-8" />
         <script src="node_modules/osc/dist/osc-browser.min.js"></script>
     </head>
     <body>
+        <div id="/t3d/tch1">halloo</div>
 
         <script>
             var oscPort = new osc.WebSocketPort({
@@ -13,12 +14,14 @@
             metadata: true
             });
             oscPort.on("message", function (oscMsg) {
-            console.log("An OSC message just arrived!", oscMsg);
+                //console.log(oscMsg);
+                document.getElementById(oscMsg.address).innerHTML = oscMsg.args[0].value;
             });
             console.log(oscPort);
             oscPort.open();
+
+
+
         </script>
     </body>
 </html>
-Raw
-
