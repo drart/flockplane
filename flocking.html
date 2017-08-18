@@ -16,13 +16,26 @@
             });
             oscPort.on("message", function (oscMsg) {
                 //console.log(oscMsg);
-                document.getElementById(oscMsg.address).innerHTML = oscMsg.args[0].value;
+                if(oscMsg.address === "/t3d/tch1"){
+                    document.getElementById(oscMsg.address).innerHTML = oscMsg.args[2].value;
+
+                    synth.set("osc.freq", oscMsg.args[0].value * 1000);
+                    synth.set("osc.mul", oscMsg.args[2].value);
+                }
             });
             console.log(oscPort);
             oscPort.open();
 
 
+            var synth = flock.synth({
+                synthDef: {
+                    id: "osc",
+                    ugen: "flock.ugen.saw",
+                    freq: 400
+                }
+            });
 
+            synth.play();
         </script>
     </body>
 </html>
